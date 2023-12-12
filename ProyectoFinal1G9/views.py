@@ -12,22 +12,34 @@ def Anime_Details(request):
 
     return render(request,'anime-details.html')
 
-# def About(request):
+def Anime_Watching(request):
 
-#     return render(request,'about.html')
+    return render(request,'anime-watching.html')
 
-# def Category(request):
+def Login(request):
 
-#     return render(request,'category.html')
+    return render(request,'login.html')
 
-# def Blog(request):
+def SignUp(request):
 
-#     return render(request,'blog.html')
+    return render(request,'signup.html')
 
-# def Search_Result(request):
+def Category(request):
 
-#     return render(request,'search-result.html')
+    return render(request,'categories.html')
 
-# def Single(request):
+def Blog(request):
 
-#     return render(request,'single.html')
+    return render(request,'blog.html')
+
+def Blog_Details(request):
+
+    return render(request,'blog-details.html')
+
+def Search_Result(request):
+
+    return render(request,'search-result.html')
+
+def Main(request):
+
+    return render(request,'main.html')
