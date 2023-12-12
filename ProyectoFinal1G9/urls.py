@@ -24,13 +24,19 @@ urlpatterns = [
     
     path('', views.Anime_Details, name ='anime-details'),
     
-    # path('', views.Login, name ='login'),
+    path('', views.Anime_Watching, name ='anime-watching'),
     
-    # path('', views.Categories, name ='categories'),
+    path('', views.Login, name ='login'),
     
-    # path('', views.Blog, name ='blog'),
+    path('', views.SignUp, name = 'signup'),
     
-    # path('', views.Search_Result, name ='search-result'),
+    path('', views.Category, name ='categories'),
     
-    # path('', views.Single, name ='single'),
+    path('', views.Blog, name ='blog'),
+    
+    path('', views.Blog_Details, name ='blog-details'),
+    
+    path('', views.Search_Result, name ='search-result'),
+    
+    path('', views.Main, name ='main'),
 ]
