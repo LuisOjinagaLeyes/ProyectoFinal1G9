@@ -26,7 +26,7 @@ urlpatterns = [
     
     # path('', views.Login, name ='login'),
     
-    # path('', views.Categories, name ='categories'),
+    path('', views.Categories, name ='categories'),
     
     # path('', views.Blog, name ='blog'),
     

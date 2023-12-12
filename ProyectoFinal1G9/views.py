@@ -16,9 +16,9 @@ def Anime_Details(request):
 
 #     return render(request,'about.html')
 
-# def Category(request):
+def Categories(request):
 
-#     return render(request,'category.html')
+    return render(request,'categories.html')
 
 # def Blog(request):
 
@@ -31,3 +31,4 @@ def Anime_Details(request):
 # def Single(request):
 
 #     return render(request,'single.html')
+
