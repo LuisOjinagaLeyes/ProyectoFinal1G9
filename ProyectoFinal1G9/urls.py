@@ -22,21 +22,21 @@ urlpatterns = [
     
     path('', views.Index, name ='index'),
     
-    path('', views.Anime_Details, name ='anime-details'),
+    path('anime-details/', views.Anime_Details, name ='anime-details'),
     
-    path('', views.Anime_Watching, name ='anime-watching'),
+    path('anime-watching/', views.Anime_Watching, name ='anime-watching'),
     
-    path('', views.Login, name ='login'),
+    path('login/', views.Login, name ='login'),
     
-    path('', views.SignUp, name = 'signup'),
+    path('signup/', views.SignUp, name = 'signup'),
     
-    path('', views.Category, name ='categories'),
+    path('categories/', views.Category, name ='categories'),
     
-    path('', views.Blog, name ='blog'),
+    path('blog/', views.Blog, name ='blog'),
     
-    path('', views.Blog_Details, name ='blog-details'),
+    path('blog-details/', views.Blog_Details, name ='blog-details'),
     
-    path('', views.Search_Result, name ='search-result'),
+    path('blog-details/', views.Search_Result, name ='search-result'),
     
-    path('', views.Main, name ='main'),
+    path('main/', views.Main, name ='main'),
 ]

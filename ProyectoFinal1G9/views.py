@@ -42,4 +42,4 @@ def Search_Result(request):
 
 def Main(request):
 
-#     return render(request,'single.html')
+    return render(request,'main.html')
