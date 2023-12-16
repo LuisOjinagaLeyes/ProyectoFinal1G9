@@ -127,6 +127,13 @@ ol {
 	font-family: "Oswald", sans-serif;
 }
 
+.titulo-pricipal {
+	color: #1bb11b;
+	font-family: "Oswald";
+
+}
+    
+
 .section-title h4:after,
 .section-title h5:after {
 	position: absolute;
