@@ -16,17 +16,19 @@ def Anime_Watching(request):
 
     return render(request,'anime-watching.html')
 
+#Muy posible borrar lo de abajo comentado.
+
 def Login(request):
 
     return render(request,'login.html')
 
-def SignUp(request):
+def Registro(request):
 
-    return render(request,'signup.html')
+    return render(request,'registro.html')
 
-def Category(request):
+def Categoria(request):
 
-    return render(request,'categories.html')
+    return render(request,'categoria.html')
 
 def Blog(request):
 

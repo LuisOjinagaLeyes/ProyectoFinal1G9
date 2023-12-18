@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.auth import views as auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,9 +31,9 @@ urlpatterns = [
     
     path('login/', views.Login, name ='login'),
     
-    path('signup/', views.SignUp, name = 'signup'),
+    path('registro/', views.Registro, name = 'registro'),
     
-    path('categories/', views.Category, name ='categories'),
+    path('categoria/', views.Categoria, name ='categoria'),
     
     path('blog/', views.Blog, name ='blog'),
     
@@ -39,4 +42,13 @@ urlpatterns = [
     path('blog-details/', views.Search_Result, name ='search-result'),
     
     path('main/', views.Main, name ='main'),
-]
+    
+    #APP Inicio_Portadas
+    path('inicio_portadas/', include('apps.inicio_portadas.urls')),#cambiar nombre
+    
+    #APP Usuarios
+    # path('usuarios/', include('apps.usuarios.urls')),
+
+#     path('login/',auth.LoginView.as_view(template_name='usuarios/login.html'),name='login'),
+#     path('logout/',auth.LogoutView.as_view(),name="logout"),
+    ]
