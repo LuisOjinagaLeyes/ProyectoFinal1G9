@@ -26,11 +26,11 @@ urlpatterns = [
     
     path('anime-watching/', views.Anime_Watching, name ='anime-watching'),
     
-    path('login/', views.Login, name ='login'),
+    # path('login/', views.Login, name ='login'),
     
-    path('signup/', views.SignUp, name = 'signup'),
+    # path('registro/', views.Registro, name = 'registro'),
     
-    path('categories/', views.Category, name ='categories'),
+    path('categoria/', views.Categoria, name ='categoria'),
     
     path('blog/', views.Blog, name ='blog'),
     
@@ -39,4 +39,10 @@ urlpatterns = [
     path('blog-details/', views.Search_Result, name ='search-result'),
     
     path('main/', views.Main, name ='main'),
+    
+    #APP Inicio_Portadas
+    path('inicio_portadas/', include('apps.inicio_portadas.urls')),#cambiar nombre
+    
+    #APP Usuarios
+    path('usuarios/', include('apps.usuarios.urls')),
 ]
