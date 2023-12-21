@@ -4,9 +4,10 @@ from . import views
 app_name = 'Usuarios'
 
 urlpatterns = [
-    path('', views.Usuarios, name="Usuarios"),#Ejemplo
+    # path('', views.Usuarios, name="Usuarios"),
     
-    path('login/', views.Login, name ='login'),
+    # path('login/', views.Login, name ='login'),
     
-    path('registro/', views.Registro, name = 'registro'),
+    path('registro/', views.Registro.as_view(), name = 'registro_user'),
+
 ]

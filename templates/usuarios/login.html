@@ -25,13 +25,14 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Iniciar sesión</h3>
-                        <form action="#">
+                        <form action="" method="POST">{% csrf_token %}
                             <div class="input__item">
-                                <input type="text" placeholder="Correo electrónico">
+                                {{form.errors}}
+                                <input type="text" name="username" placeholder="Usuario">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Contraseña">
+                                <input type="password" name="password" placeholder="Contraseña">
                                 <span class="icon_lock"></span>
                             </div>
                             <button type="submit" class="site-btn">Iniciar sesión</button>
@@ -43,7 +44,8 @@
                 <div class="col-lg-6">
                     <div class="login__register">
                         <h3>No tienes una cuenta?</h3>
-                        <a href="#" class="primary-btn">Registrate ahora</a>
+                        <!--arreglar link usuario:registro_user -->
+                        {% comment %} <a href="{% url usuarios:registro_user %}" class="primary-btn">Registrate ahora</a> {% endcomment %}
                     </div>
                 </div>
             </div>

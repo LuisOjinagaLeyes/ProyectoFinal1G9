@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.auth import views as auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,25 +27,26 @@ urlpatterns = [
     
     path('anime-details/', views.Anime_Details, name ='anime-details'),
     
-    path('anime-watching/', views.Anime_Watching, name ='anime-watching'),
+    # path('anime-watching/', views.Anime_Watching, name ='anime-watching'),
     
     # path('login/', views.Login, name ='login'),
     
     # path('registro/', views.Registro, name = 'registro'),
     
-    path('categoria/', views.Categoria, name ='categoria'),
+    # path('categoria/', views.Categoria, name ='categoria'),
     
     path('blog/', views.Blog, name ='blog'),
     
     path('blog-details/', views.Blog_Details, name ='blog-details'),
     
-    path('blog-details/', views.Search_Result, name ='search-result'),
+    path('search-result/', views.Search_Result, name ='search-result'),
     
-    path('main/', views.Main, name ='main'),
-    
-    #APP Inicio_Portadas
-    path('inicio_portadas/', include('apps.inicio_portadas.urls')),#cambiar nombre
+    #APP Noticias
+    path('noticias/', include('apps.noticias.urls')),
     
     #APP Usuarios
     path('usuarios/', include('apps.usuarios.urls')),
-]
+    path('login/',auth.LoginView.as_view(template_name='usuarios/login.html'),name='login'),
+    path('logout/',auth.LogoutView.as_view(),name="logout"),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
