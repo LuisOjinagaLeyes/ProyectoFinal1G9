@@ -25,10 +25,10 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Inscribirse</h3>
-                        <form action="" method="post">{% csrf_token %}
+                        <form action="{% url 'usuarios:registro_user' %}" method="post">{% csrf_token %}
                             <!--prueba de vista para formulario de registro-->
                             {{form.as_p}}
-                            <p><input type="submit" value="Confirmar"></p>
+                            {% comment %} <p><input type="submit" value="Confirmar"></p>
                             <div class="input__item">
                                 <input type="text" placeholder="Correo electronico">
                                 <span class="icon_mail"></span>
@@ -40,10 +40,10 @@
                             <div class="input__item">
                                 <input type="text" placeholder="Contraseña">
                                 <span class="icon_lock"></span>
-                            </div>
+                            </div> {% endcomment %}
                             <button type="submit" class="site-btn">Iniciar sesion Ahora</button>
                         </form>
-                        <h5>Ya tienes una Cuenta? <a href="#">Inicia sesion!</a></h5>
+                        <h5>Ya tienes una Cuenta? <a href="{% url 'login' %}">Inicia sesion!</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-6">
