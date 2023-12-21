@@ -25,15 +25,17 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Iniciar sesión</h3>
-                        <form action="#">
-                            <div class="input__item">
-                                <input type="text" placeholder="Correo electrónico">
+                        <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+                            {{form.as_p}}
+                            {% comment %} <div class="input__item">
+                                {{form.errors}}
+                                <input type="text" name="username" placeholder="Usuario">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Contraseña">
+                                <input type="password" name="password" placeholder="Contraseña">
                                 <span class="icon_lock"></span>
-                            </div>
+                            </div> {% endcomment %}
                             <button type="submit" class="site-btn">Iniciar sesión</button>
                         </form>
                         <!-- arreglar el link antes no tenia <br> pero si no tiene se superpone-->
@@ -43,7 +45,8 @@
                 <div class="col-lg-6">
                     <div class="login__register">
                         <h3>No tienes una cuenta?</h3>
-                        <a href="#" class="primary-btn">Registrate ahora</a>
+                        <!--arreglar link usuario:registro_user -->
+                        <a href="{% url 'usuarios:registro_user' %}" class="primary-btn">Registrate ahora</a>
                     </div>
                 </div>
             </div>
