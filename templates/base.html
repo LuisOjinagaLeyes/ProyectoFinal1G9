@@ -52,17 +52,23 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><a href="{% url 'index' %}">Homepage</a></li>
-                                <li><a href="{% url 'categoria' %}">Categories <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown">
-                                        <li><a href="{% url 'categoria' %}">Categories</a></li>
-                                        <li><a href="{% url 'inicio_portadas:I_Portadas' %}">Inicio Portadas</a></li><!-- cambiar nombre o borrar solo es ejemplo-->
-                                        <li><a href="{% url 'anime-details' %}">Anime Details</a></li>
-                                        <li><a href="{% url 'anime-watching' %}">Anime Watching</a></li>
-                                        <li><a href="{% url 'blog-details' %}">Blog Details</a></li>
-                                        <!-- modificar registro y login-->
-                                        <li><a href="{% url 'registro' %}">Registro</a></li>
-                                        <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
-                                    </ul>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Categoria <span class="arrow_carrot-down"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{% url 'noticias:i_noticias' %}">Inicio Portadas</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'anime-details' %}">Anime Details</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'blog-details' %}">Blog Details</a></li>
+                                        {% if user.is_authenticated %}
+                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></li>
+                                        {% else %}
+                                        <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar sesión</a></li>
+                                        <!--arreglar link usuario:registro_user -->
+                                        {% comment %} <li><a class="dropdown-item" href="{% url 'usuarios:registro_user' %}">Registrarme</a></li> {% endcomment %}
+                                        {% endif %}
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li><a href="{% url 'blog' %}">Our Blog</a></li>
                                 <li><a href="#">Contacts</a></li>
@@ -102,7 +108,7 @@
                     <div class="footer__nav">
                         <ul>
                             <li class="active"><a href="{% url 'index' %}">Homepage</a></li>
-                            <li><a href="{% url 'categoria' %}">Categories</a></li>
+                            {% comment %} <li><a href="{% url 'categoria' %}">Categories</a></li> {% endcomment %}
                             <li><a href="{% url 'blog' %}">Our Blog</a></li>
                             <li><a href="#">Contacts</a></li>
                         </ul>

@@ -25,7 +25,10 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Inscribirse</h3>
-                        <form action="#">
+                        <form action="" method="post">{% csrf_token %}
+                            <!--prueba de vista para formulario de registro-->
+                            {{form.as_p}}
+                            <p><input type="submit" value="Confirmar"></p>
                             <div class="input__item">
                                 <input type="text" placeholder="Correo electronico">
                                 <span class="icon_mail"></span>

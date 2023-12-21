@@ -12,9 +12,10 @@ def Anime_Details(request):
 
     return render(request,'anime-details.html')
 
-def Anime_Watching(request):
+#borrar luego de verificar que es el correcto
+# def Anime_Watching(request):
 
-    return render(request,'anime-watching.html')
+#     return render(request,'anime-watching.html')
 
 #Muy posible borrar lo de abajo comentado.
 
@@ -26,9 +27,9 @@ def Anime_Watching(request):
 
 #     return render(request,'registro.html')
 
-def Categoria(request):
+# def Categoria(request):
 
-    return render(request,'categoria.html')
+#     return render(request,'categoria.html')
 
 def Blog(request):
 
@@ -42,6 +43,3 @@ def Search_Result(request):
 
     return render(request,'search-result.html')
 
-def Main(request):
-
-    return render(request,'main.html')
