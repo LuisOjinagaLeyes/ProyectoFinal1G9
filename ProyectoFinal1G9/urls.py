@@ -29,9 +29,9 @@ urlpatterns = [
     
     # path('anime-watching/', views.Anime_Watching, name ='anime-watching'),
     
-    # path('login/', views.Login, name ='login'),
+    path('login/', views.Login, name ='login'),
     
-    # path('registro/', views.Registro, name = 'registro'),
+    path('registro/', views.Registro, name = 'registro'),
     
     # path('categoria/', views.Categoria, name ='categoria'),
     

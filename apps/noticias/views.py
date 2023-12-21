@@ -52,3 +52,4 @@ class Modificar_Noticia(UpdateView):
 class Borrar_Noticia(DeleteView):
     model= Noticia
     success_url = reverse_lazy('noticias:i_noticias')
+
