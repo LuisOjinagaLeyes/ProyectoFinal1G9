@@ -19,13 +19,13 @@ def Anime_Details(request):
 
 #Muy posible borrar lo de abajo comentado.
 
-# def Login(request):
+def Login(request):
 
-#     return render(request,'login.html')
+    return render(request,'login.html')
 
-# def Registro(request):
+def Registro(request):
 
-#     return render(request,'registro.html')
+    return render(request,'registro.html')
 
 # def Categoria(request):
 
