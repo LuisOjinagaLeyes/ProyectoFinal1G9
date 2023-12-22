@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView , DetailView , UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -28,7 +29,17 @@ def I_Noticias(request):
     elif orden == "DSC":
         todas_n = todas_n.order_by('-creado')
 
-    contexto['noticia'] = todas_n
+#lógica de paginación
+    page = request.GET.get('page', 1)
+    paginator = Paginator(todas_n, 3) #cantidad de noticias por pagina
+    try:
+        noticias_pagina = paginator.page(page)
+    except PageNotAnInteger:
+        noticias_pagina = paginator.page(1)
+    except EmptyPage:
+        noticias_pagina = paginator.page(paginator.num_pages)
+
+    contexto['noticia'] = noticias_pagina
 
     return render(request, 'noticias/index_noticias.html', contexto)
 
