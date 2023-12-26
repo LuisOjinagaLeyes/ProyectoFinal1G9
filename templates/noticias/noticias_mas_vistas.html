@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+    <!-- Contenido de la vista de noticias más vistas -->
+    <div class="container">
+        <h2>Noticias Más Vistas</h2>
+        <div class="row">
+            {% for noticia in noticias_mas_vistas %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% static noticia.imagen.url %}" class="card-img-top" alt="{{ noticia.titulo }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ noticia.titulo }}</h5>
+                            <p class="card-text">{{ noticia.vistas }} vistas</p>
+                            <a href="{% url 'noticias:detalle_noticia' pk=noticia.pk %}" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endblock contenido %}

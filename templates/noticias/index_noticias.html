@@ -1,67 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block contenido %}
-{% comment %} <div class="container">
-	<div class="text-center">
-	<h1>SOY HOME DE NOTICIAS</h1>
-	</div>
-	<div class="row" style="padding-top: 100px;">
-	<div class="col-md-4">
-		FILTRAR POR CATEGORIA
-		<ul>
-			{% if "?" in request.get_full_path %}
-				<li><a href="{{ request.get_full_path }}&categoria=0">TODAS</a></li>
-				{% for c in categorias %}
-					<li><a href="{{ request.get_full_path }}&categoria={{c.id}}">{{c.nombre}}</a></li>
-				{% endfor %}
-			{% else %}
-				<li><a href="?categoria=0">TODAS</a></li>
-				{% for c in categorias %}
-					<li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
-				{% endfor %}
-			{% endif %}
-		</ul>
-
-		ORDENAR
-		<ul>
-			{% if "?" in request.get_full_path %}
-				<li><a href="{{ request.get_full_path }}&orden=asc">ASC</a></li>
-				<li><a href="{{ request.get_full_path }}&orden=dsc">DSC</a></li>
-			{% else %}
-				<li><a href="?orden=asc">ASC</a></li>
-				<li><a href="?orden=dsc">DSC</a></li>
-			{% endif %}
-			
-			
-		</ul>
-	</div>
-	<div class="col-md-4">
-		{% for n in noticias %}
-			<div>
-				<p><strong>TITULO:</strong>{{n.titulo}}</p>
-				<p><strong>CONTENIDO:</strong>{{n.contenido}}</p>
-				<p><strong>CATEGORIA: </strong>{{n.categoria}}</p>
-				<p><strong>FECHA: </strong>{{n.creado}}</p>
-				<p><strong>CREADO POR: {{n.usuario}}</strong></p>
-				<a href="{% url 'noticias:detalle_noticia' n.pk %}">
-				<p><img src="{{n.imagen.url}}" width="150px"></p>
-				</a>
-				<a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
-				{% if request.user == n.usuario or request.user.is_staff %}
-				<a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
-				<a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
-				{% endif %}
-			</div><hr><hr>
-		{% endfor %}	
-	</div>
-	<div class="col-md-4">
-	</div>
-	</div>
-		
-	
-</div> {% endcomment %}
-
 
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">
@@ -70,10 +10,12 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a>
-						{% if categoria %}
-                        <a href="{% url 'categoria' %}">{{categoria}}</a>
-						{% endif %}
-                        <span>{{ categoria_actual.nombre }}</span>
+                        <a href="{% url 'noticias:i_noticias' %}"> Noticias</a>
+                        {% if categoria_actual %}
+                            <span>{{ categoria_actual.nombre }}</span>
+                        {% else %}
+                            <span>Todas</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -82,506 +24,118 @@
     <!-- Breadcrumb End -->
 
     <!-- Product Section Begin -->
-    <section class="product-page spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="product__page__content">
-                        <div class="product__page__title">
+        <section class="product-page spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="product__page__content">
+                            <div class="product__page__title">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <div class="section-title">
+                                            {% if categoria_actual %}
+                                                <h4>{{ categoria_actual.nombre }}</h4>
+                                            {% else %}
+                                                <h4>Todas</h4>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="product__page__filter">
+                                            <p>Ordenar Por:</p>
+                                            <form action="{% url 'noticias:i_noticias' %}" method="get">
+                                                {% if categoria_actual %}
+                                                    <select name="categoria">
+                                                        <option value="{{ categoria_actual.id }}" selected>{{ categoria_actual.nombre }}</option>
+                                                        <option value="">Todas</option>
+                                                        {% for i in categorias %}
+                                                            <option value="{{ i.id }}">{{ i.nombre }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                {% else %}
+                                                    <select name="categoria">
+                                                        <option value="" selected>Todas</option>
+                                                        {% for i in categorias %}
+                                                            <option value="{{ i.id }}">{{ i.nombre }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                {% endif %}
+                                                <select name="orden">
+                                                    <option value="" selected>Todas</option>
+                                                    <option value="ASC" {% if orden == 'ASC' %}selected{% endif %} >ASC</option>
+                                                    <option value="DSC" {% if orden == 'DSC' %}selected{% endif %} >DSC</option>
+                                                </select>
+                                                <button type="submit">Ordenar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <div class="section-title">
-                                        <h4>{{ categoria_actual.nombre }}</h4>
+                                {% for noticia in noticias_pagina %}
+                                    <div class="col-lg-4 col-md-6 col-sm-6 mr-auto">
+                                        <div class="product__item">
+                                            <div class="product__item__pic set-bg" data-setbg="{{ noticia.imagen.url }}">
+                                                <div class="ep">{{ noticia.categoria.nombre }}</div>
+                                                <div class="comment"><i class="fa fa-comments"></i>{{ noticia.comentarios }}</div>
+                                                <div class="view"><i class="fa fa-eye"></i>{{ noticia.visualizaciones }}</div>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <ul>
+                                                    <li>{{ noticia.estado }}</li>
+                                                    <li>{{ noticia.tipo }}</li>
+                                                </ul>
+                                                <h5><a href="#">{{ noticia.titulo }}</a></h5>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="product__page__filter">
-                                        <p>Ordenar Por:</p>
-                                        <select onchange="location = this.value;" >
-											{% if categoria %}
-                                            <option value="{% url 'categoria' %}?categoria={{ categoria_actual.id }}&orden=ASC">A-Z</option>
-                                            <option value="{% url 'categoria' %}?categoria={{ categoria_actual.id }}&orden=DSC">1-10</option>
-                                            <option value="{% url 'categoria' %}?categoria={{ categoria_actual.id }}&orden=">10-50</option>
-											{% else %}
-											<option value="?orden=ASC">A-Z</option>
-                                            <option value="?orden=DSC">1-10</option>
-                                            <option value="?orden=">10-50</option>
-											{% endif %}
-                                        </select>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-
-									<!-- Filtrar por Categoria -->
-										<ul>
-											{% if "?" in request.get_full_path %}
-												<li><a href="{{ request.get_full_path }}&categoria=0">Todas</a></li>
-													{% for i in categorias %}
-														<li><a href="{{ request.get_full_path }}&categoria={{ i.id }}">{{ i.nombre }}</a></li>
-													{% endfor %}
-											{% else %}
-												<li><a href="?categoria=0">Todas</a></li>
-												{% for i in categorias %}
-													<li><a href="?categoria={{ i.id }}">{{ i.nombre }}</a></li>
-												{% endfor %}
-											{% endif %}
-										</ul>
-									<!-- Filtrar por Categoria -->
-                        <div class="row">
-							{% for noticia in noticias %}
-								<div class="col-lg-4 col-md-6 col-sm-6">
-									<div class="product__item">
-										<div class="product__item__pic set-bg" data-setbg="{{ noticia.imagen.url }}">
-											<div class="ep">{{ noticia.episodios }}</div>
-											<div class="comment"><i class="fa fa-comments"></i>{{ noticia.comentarios }}</div>
-											<div class="view"><i class="fa fa-eye"></i>{{ noticia.visualizaciones }}</div>
-										</div>
-										<div class="product__item__text">
-											<ul>
-												<li>{{ noticia.estado }}</li>
-												<li>{{ noticia.tipo }}</li>
-											</ul>
-											<h5><a href="#">{{ noticia.titulo }}</a></h5>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
-						</div>
-
-						<div class="product__pagination">
-							{% for num in noticias.paginator.page_range %}
-								<a href="?page={{ num }}" class="{% if num == noticias.number %}current-page{% endif %}">{{ num }}</a>
-							{% endfor %}
-							<a href="?page={{ noticias.next_page_number }}"><i class="fa fa-angle-double-right"></i></a>
-						</div>
-                            {% comment %} <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/popular/popular-1.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                        <div class="product__pagination">
+                            {% if noticias_pagina.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ noticias_pagina.previous_page_number }}">‹‹</a>
+                            {% endif %}
+    
+                            {% for num in noticias_pagina.paginator.page_range %}
+                                <a href="?page={{ num }}" class="{% if num == noticias_pagina.number %}current-page{% endif %}">{{ num }}</a>
+                            {% endfor %}
+    
+                            {% if noticias_pagina.has_next %}
+                                <a href="?page={{ noticias_pagina.next_page_number }}"><i class="fa fa-angle-double-right"></i></a>
+                                <a href="?page={{ noticias_pagina.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="product__sidebar">
+                            <div class="product__sidebar__view">
+                                <div class="section-title">
+                                    <h5>Top Vist@s</h5>
                                     </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Sen to Chihiro no Kamikakushi</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/popular/popular-2.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Kizumonogatari III: Reiket su-hen</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/popular/popular-3.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Shirogane Tamashii hen Kouhan sen</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/popular/popular-4.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Rurouni Kenshin: Meiji Kenkaku Romantan</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/popular/popular-5.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Mushishi Zoku Shou 2nd Season</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/popular/popular-6.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Monogatari Series: Second Season</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/recent/recent-1.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Great Teacher Onizuka</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/recent/recent-2.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Fate/stay night Movie: Heaven's Feel - II. Lost</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/recent/recent-3.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Mushishi Zoku Shou: Suzu no Shizuku</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/recent/recent-4.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Fate/Zero 2nd Season</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/recent/recent-5.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Kizumonogatari II: Nekket su-hen</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/recent/recent-6.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/trending/trend-1.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/trending/trend-2.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Gintama Movie 2: Kanketsu-hen - Yorozuya yo Eien</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/trending/trend-3.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Shingeki no Kyojin Season 3 Part 2</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/trending/trend-4.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Fullmetal Alchemist: Brotherhood</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/trending/trend-5.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Shiratorizawa Gakuen Koukou</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{% static 'img/trending/trend-6.jpg' %}">
-                                        <div class="ep">18 / 18</div>
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Code Geass: Hangyaku no Lelouch R2</a></h5>
-                                    </div>
+                                <ul class="filter__controls">
+                                    <li class="active" data-filter="*">Dia</li>
+                                    <li data-filter=".week">Semana</li>
+                                    <li data-filter=".month">Mes</li>
+                                    <li data-filter=".years">Año</li>
+                                </ul>
+                                <div class="filter__gallery">
+                                    {% for noticia in noticias_mas_vistas %}
+                                        <div class="product__sidebar__view__item set-bg mix day years" data-setbg="{{ noticia.imagen.url }}">
+                                        <div class="ep">{{ noticia.categoria.nombre }}</div>
+                                        <div class="view"><i class="fa fa_eye"></i>{{ noticia.vistas }}</div>
+                                        <h5><a href="#">{{ noticia.titulo }}</a></h5>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="product__pagination">
-                        <a href="#" class="current-page">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#"><i class="fa fa-angle-double-right"></i></a>
-                    </div> {% endcomment %}
                 </div>
-                {% comment %} <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="product__sidebar">
-                        <div class="product__sidebar__view">
-                            <div class="section-title">
-                                <h5>Top Views</h5>
-                            </div>
-                            <ul class="filter__controls">
-                                <li class="active" data-filter="*">Day</li>
-                                <li data-filter=".week">Week</li>
-                                <li data-filter=".month">Month</li>
-                                <li data-filter=".years">Years</li>
-                            </ul>
-                            <div class="filter__gallery">
-                                <div class="product__sidebar__view__item set-bg mix day years"
-                                data-setbg="{% static 'img/sidebar/tv-1.jpg' %}">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg mix month week"
-                            data-setbg="{% static 'img/sidebar/tv-2.jpg' %}">
-                            <div class="ep">18 / ?</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                            <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                        </div>
-                        <div class="product__sidebar__view__item set-bg mix week years"
-                        data-setbg="{% static 'img/sidebar/tv-3.jpg' %}">
-                        <div class="ep">18 / ?</div>
-                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                        <h5><a href="#">Sword art online alicization war of underworld</a></h5>
-                    </div>
-                    <div class="product__sidebar__view__item set-bg mix years month"
-                    data-setbg="{% static 'img/sidebar/tv-4.jpg' %}">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
-                </div>
-                <div class="product__sidebar__view__item set-bg mix day"
-                data-setbg="{% static 'img/sidebar/tv-5.jpg' %}">
-                <div class="ep">18 / ?</div>
-                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                <h5><a href="#">Fate stay night unlimited blade works</a></h5> {% endcomment %}
             </div>
-        </div>
-    </div>
-		<div>
-			
-		</div>
-    {% comment %} <div class="product__sidebar__comment">
-        <div class="section-title">
-            <h5>New Comment</h5>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="{% static 'img/sidebar/comment-1.jpg' %}" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="{% static 'img/sidebar/comment-2.jpg' %}" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Shirogane Tamashii hen Kouhan sen</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="{% static 'img/sidebar/comment-3.jpg' %}" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Kizumonogatari III: Reiket su-hen</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-        <div class="product__sidebar__comment__item">
-            <div class="product__sidebar__comment__item__pic">
-                <img src="{% static 'img/sidebar/comment-4.jpg' %}" alt="">
-            </div>
-            <div class="product__sidebar__comment__item__text">
-                <ul>
-                    <li>Active</li>
-                    <li>Movie</li>
-                </ul>
-                <h5><a href="#">Monogatari Series: Second Season</a></h5>
-                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-            </div>
-        </div>
-    </div> {% endcomment %}
-</div>
-</div>
-</div>
-</div>
-</section>
+        </section>
 <!-- Product Section End -->
-
-{% comment %} <!-- Filtrar por Categoria -->
-
-<ul>
-	{% if "?" in request.get_full_path %}
-		<li><a href="{{ request.get_full_path }}&categoria=0">Todas</a></li>
-			{% for i in categorias %}
-				<li><a href="{{ request.get_full_path }}&categoria={{ i.id }}">{{ i.nombre }}</a></li>
-			{% endfor %}
-	{% else %}
-		<li><a href="?categoria=0">Todas</a></li>
-		{% for i in categorias %}
-			<li><a href="?categoria={{ i.id }}">{{ i.nombre }}</a></li>
-		{% endfor %}
-	{% endif %}
-</ul>
-
-<!-- Filtrar por Categoria --> {% endcomment %}
 
 {% endblock contenido %}
