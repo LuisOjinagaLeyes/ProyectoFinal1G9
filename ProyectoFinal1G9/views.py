@@ -20,9 +20,9 @@ def Registro(request):
 
     return render(request,'registro.html')
 
-def Categoria(request):
+# def Categoria(request):
 
-    return render(request,'categoria.html')
+#     return render(request,'categoria.html')
 
 def Blog(request):
 

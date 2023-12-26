@@ -15,7 +15,9 @@ class Noticia(models.Model):
     creado = models.DateTimeField('creado', auto_now_add=True)
     modificado= models.DateTimeField('modificado', auto_now=True)
     
-    titulo = models.CharField(max_length = 250)
+    vistas = models.IntegerField(default=0)
+    
+    titulo = models.CharField(max_length = 255)
     contenido = models.TextField()
     imagen = models.ImageField(upload_to = 'noticias')
     categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE, default=1)

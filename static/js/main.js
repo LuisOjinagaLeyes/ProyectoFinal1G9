@@ -24,7 +24,10 @@
         $('.filter__controls li').on('click', function () {
             $('.filter__controls li').removeClass('active');
             $(this).addClass('active');
+            var filterValue = $(this).attr('data-filter');
+            mixer.filter(filterValue);
         });
+        
         if ($('.filter__gallery').length > 0) {
             var containerEl = document.querySelector('.filter__gallery');
             var mixer = mixitup(containerEl);
