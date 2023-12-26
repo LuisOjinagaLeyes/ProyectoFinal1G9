@@ -2002,6 +2002,38 @@ ol {
 	color: #e53637;
 }
 
+/* color de fondo del menu */
+
+.dropdown-menu {
+	background-color: #070720;
+}
+
+.dropdown-menu a:hover {
+	color: #e53637;
+	background-color: #444;
+}
+
+/* dropdown hover */
+
+.dropdown:hover .dropdown-toggle {
+	color: #e53637;
+	background-color: transparent;
+}
+
+.dropdown-menu a:hover {
+	color: #b7b7b7;
+	background-color: #e53637;
+}
+
+#barra_nav:hover{
+	background-color: #070720;
+}
+
+#barra_nav:hover a {
+	color: #e53637;
+}
+
+
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {

@@ -27,17 +27,15 @@ urlpatterns = [
     
     path('anime-details/', views.Anime_Details, name ='anime-details'),
     
-    # path('anime-watching/', views.Anime_Watching, name ='anime-watching'),
-    
     path('login/', views.Login, name ='login'),
     
     path('registro/', views.Registro, name = 'registro'),
     
-    # path('categoria/', views.Categoria, name ='categoria'),
+    path('categoria/', views.Categoria, name ='categoria'),
     
     path('blog/', views.Blog, name ='blog'),
     
-    path('blog-details/', views.Blog_Details, name ='blog-details'),
+    path('contacto/', views.Contacto, name ='contacto'),
     
     path('search-result/', views.Search_Result, name ='search-result'),
     
