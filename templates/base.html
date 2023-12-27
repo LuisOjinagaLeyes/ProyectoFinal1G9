@@ -56,7 +56,8 @@
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categoria </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li><a class="dropdown-item" href="{% url 'noticias:i_noticias' %}">Noticias</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'anime-details' %}">Anime Details</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'noticias:cargar_noticia' %}">Crear Noticia</a></li>
+                                        {% comment %} <li><a class="dropdown-item" href="{% url 'anime-details' %}">Anime Details</a></li> {% endcomment %}
                                         {% if user.is_authenticated %}
                                         <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></li>
                                         {% else %}
