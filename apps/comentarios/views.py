@@ -4,11 +4,10 @@ from apps.noticias.models import Noticia
 from .models import Comentario
 from django.urls import reverse_lazy
 from .forms import Form_Modificacion
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def Agregar_Comentario(request,pk):
-
-
 
 
 	texto = request.POST.get('comentario',None)
