@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import CreateView , View , UpdateView, DeleteView
+from django.views.generic import CreateView , DetailView , UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 from apps.comentarios.models import Comentario
@@ -70,12 +70,12 @@ class Cargar_Noticia(CreateView):
         noticia = form.save(commit=False)
         noticia.usuario = self.request.user
         return super(Cargar_Noticia, self).form_valid(form)
-
+#BASADO EN CLASE
 # class Detalle_Noticia(DetailView):
-    # model = Noticia
-    # template_name = 'noticias/detalle_noticia.html'
+#     model = Noticia
+#     template_name = 'noticias/detalle_noticia.html'
 
-
+#BASADO EN FUNCION
 def Detalle_noticia(request, pk):
 	contexto = {}
 	n = Noticia.objects.get(pk = pk)
@@ -84,6 +84,17 @@ def Detalle_noticia(request, pk):
 	com = Comentario.objects.filter(noticia = n)
 	contexto['comentarios'] = com
 	return render(request,'noticias/detalle_noticia.html', contexto)
+
+#BASADO EN CLASE
+# class DetalleNoticiaView(DetailView):
+#     model = Noticia
+#     template_name = 'noticias/detalle_noticia.html'
+#     context_object_name = 'noticia'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['comentarios'] = Comentario.objects.filter(noticia=self.object)
+#         return context
 
 
 

@@ -48,4 +48,7 @@ urlpatterns = [
     path('logout/',auth.LogoutView.as_view(),name="logout"),
     
 
+    #APP COMENTARIOS
+    path('Comentarios/', include('apps.comentarios.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -24,7 +24,7 @@ class BorrarComentario(DeleteView):
 	def get_success_url(self):         
 		return reverse_lazy('noticias:detalle_noticia',kwargs={'pk': self.object.noticia.pk})
 
-class ModificaComentario(UpdateView):
+class ModificarComentario(UpdateView):
 	model = Comentario
 	form_class = Form_Modificacion
 	template_name = 'comentarios/modificar.html'
