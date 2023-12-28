@@ -101,7 +101,7 @@
                         {% comment %} {% endfor %} {% endcomment %}
 
 							{% if request.user.is_authenticated %}
-                            <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}">
+                            {% comment %} <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}"> {% endcomment %}
                                 {% comment %} <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
                                 <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrrar</a> {% endcomment %}
 								{% csrf_token %}
@@ -137,7 +137,7 @@
                                 <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
                             </div>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                 </div>
             </div>
         </section> {% endcomment %}
