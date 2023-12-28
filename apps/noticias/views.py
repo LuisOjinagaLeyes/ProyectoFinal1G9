@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import CreateView , DetailView , UpdateView, DeleteView
+from django.views.generic import CreateView , View , UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+
+from apps.comentarios.models import Comentario
 
 from .models import Noticia, Categoria
 from .forms import Formulario_Noticia, Formulario_Modificar_Noticia, ConfirmarBorrado
@@ -64,9 +66,26 @@ class Cargar_Noticia(CreateView):
     form_class = Formulario_Noticia
     success_url = reverse_lazy('noticias:i_noticias')
 
-class Detalle_Noticia(DetailView):
-    model = Noticia
-    template_name = 'noticias/detalle_noticia.html'
+    def form_valid(self, form):
+        noticia = form.save(commit=False)
+        noticia.usuario = self.request.user
+        return super(Cargar_Noticia, self).form_valid(form)
+
+# class Detalle_Noticia(DetailView):
+    # model = Noticia
+    # template_name = 'noticias/detalle_noticia.html'
+
+
+def Detalle_noticia(request, pk):
+	contexto = {}
+	n = Noticia.objects.get(pk = pk)
+	contexto['noticia'] = n
+
+	com = Comentario.objects.filter(noticia = n)
+	contexto['comentarios'] = com
+	return render(request,'noticias/detalle_noticia.html', contexto)
+
+
 
 class Modificar_Noticia(UpdateView):
     model = Noticia
