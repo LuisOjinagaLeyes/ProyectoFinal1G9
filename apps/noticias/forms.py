@@ -1,5 +1,6 @@
 from django import forms
 from .models import Noticia
+from django.forms import TextInput, Textarea
 
 class Formulario_Noticia(forms.ModelForm):
     
@@ -12,18 +13,22 @@ class Formulario_Modificar_Noticia(forms.ModelForm):
     class Meta:
         model = Noticia
         fields =['titulo','contenido','imagen','categoria']
-
-        def __init__(self, *args, **kwargs):
-            super(Formulario_Modificar_Noticia, self).__init__(*args, **kwargs)
-            
-            for field_name, field in self.fields.items():
-                field.widget.attrs.update({'class': 'form-control'})
-                
-                if field_name == 'imagen':
-                    field.widget.attrs.update({'class': 'form-control-file'})
-                
-                if field_name == 'titulo':
-                    field.widget.attrs.update({'placeholder': 'Ingrese el titulo'})
+        widgets = {
+            'titulo': TextInput(attrs={
+                'placeholder': 'Ingrese el titulo',
+                'class': 'mb-3 form-control',
+            }),
+            'contenido': Textarea(attrs={
+                'class': 'mb-3 form-control',
+                'rows': 5,
+            }),
+            'imagen': TextInput(attrs={
+                'class': 'form-control-file mb-3',
+            }),
+            'categoria': forms.Select(attrs={
+                'class': 'form-control mb-3'
+            })
+        }
 
 
 class ConfirmarBorrado(forms.Form):
