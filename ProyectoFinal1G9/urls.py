@@ -25,11 +25,11 @@ urlpatterns = [
     
     path('', views.Index, name ='index'),
     
-    path('anime-details/', views.Anime_Details, name ='anime-details'),
+    path('detalle_noticia/', views.Detalle_Noticia, name ='detalle_noticia'),
     
-    path('login/', views.Login, name ='login'),
+    # path('login/', views.Login, name ='login'),
     
-    path('registro/', views.Registro, name = 'registro'),
+    # path('registro/', views.Registro, name = 'registro'),
     
     # path('categoria/', views.Categoria, name ='categoria'),
     

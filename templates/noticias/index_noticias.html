@@ -78,15 +78,9 @@
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg" data-setbg="{{ noticia.imagen.url }}">
                                                 <div class="ep">{{ noticia.categoria.nombre }}</div>
-                                                <div class="comment"><i class="fa fa-comments"></i>{{ noticia.comentarios }}</div>
-                                                <div class="view"><i class="fa fa-eye"></i>{{ noticia.visualizaciones }}</div>
                                             </div>
                                             <div class="product__item__text">
-                                                <ul>
-                                                    <li>{{ noticia.estado }}</li>
-                                                    <li>{{ noticia.tipo }}</li>
-                                                </ul>
-                                                <h5><a href="#">{{ noticia.titulo }}</a></h5>
+                                                <h5><a href="{% url 'noticias:detalle_noticia' pk=noticia.pk %}">{{ noticia.titulo }}</a></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +107,7 @@
                         <div class="product__sidebar">
                             <div class="product__sidebar__view">
                                 <div class="section-title">
-                                    <h5>Top Vist@s</h5>
+                                    <h5>Noticias Más Vistas</h5>
                                     </div>
                                 <ul class="filter__controls">
                                     <li class="active" data-filter="*">Dia</li>
@@ -125,8 +119,7 @@
                                     {% for noticia in noticias_mas_vistas %}
                                         <div class="product__sidebar__view__item set-bg mix day years" data-setbg="{{ noticia.imagen.url }}">
                                         <div class="ep">{{ noticia.categoria.nombre }}</div>
-                                        <div class="view"><i class="fa fa_eye"></i>{{ noticia.vistas }}</div>
-                                        <h5><a href="#">{{ noticia.titulo }}</a></h5>
+                                        <h5><a href="{% url 'noticias:detalle_noticia' pk=noticia.pk %}">{{ noticia.titulo }}</a></h5>
                                         </div>
                                     {% endfor %}
                                 </div>

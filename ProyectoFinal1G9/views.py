@@ -8,9 +8,9 @@ def Index(request):
 
     return render(request,'index.html')
 
-def Anime_Details(request):
+def Detalle_Noticia(request):
 
-    return render(request,'anime-details.html')
+    return render(request,'detalle_noticia.html')
 
 def Login(request):
 

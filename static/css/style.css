@@ -2033,6 +2033,22 @@ ol {
 	color: #e53637;
 }
 
+/*formulario modificar noticia*/
+
+#form-container {
+	max-width: 400px;
+	margin: auto;
+}
+
+#form-header {
+	text-align: center;
+	font-size: 1.5em;
+	margin-bottom: 20px;
+}
+
+#form-group {
+	margin-bottom: 20px;
+}
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
