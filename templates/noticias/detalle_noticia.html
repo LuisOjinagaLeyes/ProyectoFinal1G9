@@ -74,11 +74,20 @@
                         </div>
                         <div class="anime__details__form">
                             <div class="section-title">
-                                <h5>Tu Comentario</h5>
+                                <h5>Decinos tu opinion</h5>
+
+                                {% for c in comentarios %}
 								<!--creo que falta lo de noticia apps parte comentario para que funcione comentarios:agregar-->
+                            <div>
+                                {{c.usuarios}} : {{c.texto}}
+                                {% if request.user == c.usuario %}
+                                <a href="{%url 'comentarios:borrar_comentario' c.pk %}">borrar</a> - <a href="[% url 'comentarios:modificar_comentario' c.pk %]">modificar</a>
+                                {%endif %}
                             </div>
+                        {% endfor %}
+
 							{% if request.user.is_authenticated %}
-                            {% comment %} <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}"> {% endcomment %}
+                            <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}">
 								{% csrf_token %}
                                 <textarea placeholder="Your Comment"></textarea>
                                 <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
