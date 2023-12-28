@@ -9,9 +9,9 @@
             <div class="anime__details__text">
                 <form action="" method="post" enctype="multipart/form-data" class="anime__details__text py-4 px-5">
                     {% csrf_token %}
-                    <h3 class="mb-4">Modificar Noticia</h3>
-                    {% comment %} {{form.as_p}} {% endcomment %}
-                    <div class="mb-3">
+                    <h3 class="mb-4" id="form_modificar_noticia_h3">Modificar Noticia</h3>
+                    {{form.as_p}}
+                    {% comment %} <div class="mb-3">
                         <label for="titulo" class="form-label">Titulo</label>
                         {{ form.titulo }}
                     </div>
@@ -28,7 +28,7 @@
                     <div class="mb-3">
                         <label for="categoria" class="form-label">Categoria</label>
                         {{ form.categoria }}
-                    </div>
+                    </div> {% endcomment %}
                     <div class="d-flex justify-content-between mt-4">
                         <button type="submit" class="btn-primary btn-danger follow-btn">Confirmar</button>
                         <button href="{% url 'noticias:i_noticias' %}"class="btn-secondary btn-danger follow-btn">Cancelar</button>
