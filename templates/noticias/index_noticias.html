@@ -81,6 +81,10 @@
                                             </div>
                                             <div class="product__item__text">
                                                 <h5><a href="{% url 'noticias:detalle_noticia' pk=noticia.pk %}">{{ noticia.titulo }}</a></h5>
+                                                {% if request.user == n.ususario or request.user.is_staff %}
+                                                {% comment %} <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
+                                                <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrrar</a> {% endcomment %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
