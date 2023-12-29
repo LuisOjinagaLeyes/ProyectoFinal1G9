@@ -1,6 +1,8 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import CreateView , DetailView , UpdateView, DeleteView
+from django.views.generic import ListView, CreateView , DetailView , UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 from apps.comentarios.models import Comentario
@@ -11,6 +13,7 @@ from .forms import Formulario_Noticia, Formulario_Modificar_Noticia, ConfirmarBo
 from django.http import Http404
 from django.utils import timezone
 from datetime import timedelta
+from django.db.models import Q
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -30,6 +33,7 @@ def I_Noticias(request):
     orden = request.GET.get('orden', None)
 
     todas_n = Noticia.objects.all()
+    categoria_select = None
 
     if filtro and filtro != '0':
         try:
@@ -149,3 +153,23 @@ def Noticias_Mas_Vistas(request):
 
     return render(request, 'noticias/index_noticias.html', contexto)
 
+
+class BuscarNoticias(ListView):
+    model = Noticia
+    template_name = 'noticias/buscar_noticias.html'
+    context_object_name = 'resultados'
+    #paginate_by es para la cantidad de noticias por página  
+    paginate_by = 15
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Noticia.objects.filter(
+                Q(titulo__icontains=query) | Q(contenido__icontains=query)
+            )
+        return Noticia.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        return context

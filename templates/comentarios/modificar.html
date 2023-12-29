@@ -2,14 +2,22 @@
 {% load static %}
 {% block contenido %}
 
-
-  <div>
-        <form action="" method="post">{% csrf_token %}         
-        <h3 class="mb-4">MODIFICAR COMENTARIO: "{{object.texto}}"</h3>
-          {{form.as_p}}
-          <p><input type="submit"  value="Confirmar"></p>
-        </form>
-        
-  </div>
+<div class="container">
+    <div class="anime__details__content">
+        <div class="table-active">
+            <form action="" method="post" class="py-4 px-5">
+                {% csrf_token %}
+                <div class="anime__details__text mb-4">
+                    <h3 class="mb-4" id="form_modificar_noticia_h3">MODIFICAR COMENTARIO: <span style="color:#b7b7b7;">"{{object.texto}}"</span></h3>
+                        {{ form.as_p }}
+                </div>
+                <div class="anime__details__btn">
+                    <a href="{% url 'noticias:detalle_noticia' pk=object.noticia.pk %}" class="btn-secondary btn-danger follow-btn">Cancelar</a>
+                    <input type="submit" class="btn-danger btn-danger follow-btn" value="Confirmar eliminación">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock contenido %}

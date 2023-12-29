@@ -46,6 +46,7 @@ urlpatterns = [
     path('usuarios/', include('apps.usuarios.urls')),
     path('login/',auth.LoginView.as_view(template_name='usuarios/login.html'),name='login'),
     path('logout/',auth.LogoutView.as_view(),name="logout"),
+    
 
     #APP COMENTARIOS
     path('Comentarios/', include('apps.comentarios.urls')),
