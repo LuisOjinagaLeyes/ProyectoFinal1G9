@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="normal-breadcrumb set-bg" data-setbg="{% static 'img/normal-breadcrumb.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="normal__breadcrumb__text">
+                    <h2>Resultados de la busqueda para '{{ query }}'</h2>
+                    {% if not resultados %}
+                        <p>No se encontraron noticias.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container resultados-container">
+    {% comment %} <h2>Resultados de la busqueda para '{{ query }}'</h2> {% endcomment %}
+
+    {% if resultados %}
+        <ul>
+            {% for resultado in resultados %}
+                <li>
+                    <a href="{% url 'noticias:detalle_noticia' pk=resultado.pk%}">{{ resultado.titulo }}-<span>Fecha de publicación: {{ resultado.creado }}</span></a>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+        <div class="product__pagination">
+            {% if resultados.has_previous %}
+                <a href="?q={{ query }}&page=1">&laquo; Primero</a>
+                <a href="?q={{ query }}&page={{ resultados.previous_page_number }}">‹‹</a>
+            {% endif %}
+
+            {% for num in resultados.paginator.page_range %}
+                <a href="?q={{ query }}&page={{ num }}" class="{% if num == resultados.number %}current-page{% endif %}">{{ num }}</a>
+            {% endfor %}
+
+            {% if resultados.has_next %}
+                <a href="?q={{ query }}&page={{ resultados.next_page_number }}"><i class="fa fa-angle-double-right"></i></a>
+                <a href="?q={{ query }}&page={{ resultados.paginator.num_pages }}">Ultimo &raquo;</a>
+            {% endif %}
+        </div>
+    {% comment %} {% else %}
+        <p>No se encontraron noticias.</p> {% endcomment %}
+    {% endif %}
+</div>
+
+{% endblock contenido %}

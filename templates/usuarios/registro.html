@@ -21,42 +21,25 @@
     <!-- Signup Section Begin -->
     <section class="signup spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="login__form">
-                        <h3>Inscribirse</h3>
-                        <form action="{% url 'usuarios:registro_user' %}" method="post">{% csrf_token %}
-                            <!--prueba de vista para formulario de registro-->
-                            {{form.as_p}}
-                            {% comment %} <p><input type="submit" value="Confirmar"></p>
-                            <div class="input__item">
-                                <input type="text" placeholder="Correo electronico">
-                                <span class="icon_mail"></span>
-                            </div>
-                            <div class="input__item">
-                                <input type="text" placeholder="Tu nombre">
-                                <span class="icon_profile"></span>
-                            </div>
-                            <div class="input__item">
-                                <input type="text" placeholder="Contraseña">
-                                <span class="icon_lock"></span>
-                            </div> {% endcomment %}
-                            <button type="submit" class="site-btn">Iniciar sesion Ahora</button>
-                        </form>
-                        <h5>Ya tienes una Cuenta? <a href="{% url 'login' %}">Inicia sesion!</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="login__social__links">
-                        <h3>Iniciar con:</h3>
-                        <ul>
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Iniciar sesión con Facebook</a>
-                            </li>
-                            <li><a href="#" class="google"><i class="fa fa-google"></i> Iniciar sesión con Google</a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Iniciar sesión con Twitter</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div id="form_registro" class="col-lg-6 mx-auto">
+                <h3 id="form_modificar_noticia_h3">Inscribirse</h3>
+                <form action="{% url 'usuarios:registro_user' %}" method="post">
+                    {% csrf_token %}
+                        
+                    {{ form.errors }}
+                        
+                    {% for field in form %}
+                        <div class="input__item">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="site-btn btn-danger follow-btn">Iniciar sesion Ahora</button>
+                </form>
+                <h5 class="text-white">Ya tienes una Cuenta? <a href="{% url 'login' %}" class="btn_ya_tienes_cuenta">Inicia sesion!</a></h5>
             </div>
         </div>
     </section>

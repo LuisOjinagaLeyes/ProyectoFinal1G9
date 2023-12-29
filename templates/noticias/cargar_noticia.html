@@ -3,10 +3,18 @@
 
 {% block contenido %}
 
-<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <h3>Crear Noticia</h3>
-    {{form.as_p}}
-    <p><input type="submit" value="Confirmar"></p>
-</form>
+<div class="container">
+    <div class="table-active">
+        <form action="" method="post" enctype="multipart/form-data" class="anime__details__text">
+                {% csrf_token %}
+            <h3 class="mb-4" id="form_modificar_noticia_h3">Crear Noticia</h3>
+                {{ form.as_p }}
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-primary btn-danger follow-btn">Confirmar</button>
+                <button href="{% url 'noticias:i_noticias' %}"class="bt btn-secondary btn-danger follow-btn">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock contenido %}

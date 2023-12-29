@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from apps.noticias.models import Categoria
 
 def Base(request):
 
 	return render(request,'base.html')
 
 def Index(request):
-
-    return render(request,'index.html')
+    
+    categorias = Categoria.objects.all()
+    
+    return render(request,'index.html', {'categorias': categorias})
 
 def Detalle_Noticia(request):
 
@@ -20,9 +23,6 @@ def Registro(request):
 
     return render(request,'registro.html')
 
-# def Categoria(request):
-
-#     return render(request,'categoria.html')
 
 def Blog(request):
 

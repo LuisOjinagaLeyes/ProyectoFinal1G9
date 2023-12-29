@@ -63,6 +63,7 @@
 							{% for comentario in comentarios %}
 								<div class="anime__review__item">
 									<div class="anime__review__item__pic">
+                                        <!--arreglar las imagen de perfil-->
 										<img src="{{ comentario.usuario.imagen.url }}" alt="{{ comentario.usuario.username }} Imagen perfil">
 									</div>
 									<div class="anime__review__item__text">
@@ -76,71 +77,25 @@
     
                                         {%endif %}
 									</div>
-                                    {% comment %} {% if request.user == comentario.usuario %}
-
-                                    <a href="{% url 'comentarios:borrar_comentario' comentario.pk %}" class="fa fa-location-arrow">Borrar comentario</a>
-                                    </div>
-                                    <a href="{% url 'comentarios:modificar_comentario' comentario.pk %}">Modificar comentario</a>
-
-                                    {%endif %} {% endcomment %}
 								</div>
 							{% endfor %}
                         </div>
                         <div class="anime__details__form">
                             <div class="section-title">
                                 <h5>Decinos tu opinion</h5>
-                                {% comment %} {% for c in comentarios %}
-								<!--creo que falta lo de noticia apps parte comentario para que funcione comentarios:agregar-->
-                                <div>
-                                
-                                {{c.usuarios}} : {{c.texto}} {% endcomment %}
-                                {% comment %} {% if request.user == c.usuario %}
-                                <a href="{% url 'comentarios:borrar_comentario' c.pk %}">borrar</a> - <a href="[% url 'comentarios:modificar_comentario' c.pk %]">modificar</a>
-                                {%endif %} {% endcomment %}
                             </div>
-                        {% comment %} {% endfor %} {% endcomment %}
-
 							{% if request.user.is_authenticated %}
-                            {% comment %} <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}"> {% endcomment %}
-                                {% comment %} <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
-                                <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrrar</a> {% endcomment %}
+                            <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}">
 								{% csrf_token %}
-                                <textarea placeholder="Your Comment" name='comentario'></textarea>
+                                <textarea placeholder="Tu Comentario" name='comentario'></textarea>
                                 <button type="submit"><i class="fa fa-location-arrow"></i> Comentar</button>
                             </form>
 							{% endif %}
                         </div> 
                     </div>
-                    {% comment %} <div class="col-lg-4 col-md-4">
-                        <div class="anime__details__sidebar">
-                            <div class="section-title">
-                                <h5>you might like...</h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="{% static 'img/sidebar/tv-1.jpg' %}">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="{% static 'img/sidebar/tv-2.jpg' %}">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="{% static 'img/sidebar/tv-3.jpg' %}">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Sword art online alicization war of underworld</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="{% static 'img/sidebar/tv-4.jpg' %}">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
-                            </div>
-                        </div>
-                    </div> {% endcomment %}
                 </div>
             </div>
-        </section> {% endcomment %}
+        </section>
         <!-- Anime Section End -->
 
 {% endblock contenido %}

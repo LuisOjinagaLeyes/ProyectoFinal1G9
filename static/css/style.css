@@ -2033,9 +2033,6 @@ ol {
 	color: #e53637;
 }
 
-#barra_nav {
-	color: #e53637;
-}   
 /*formulario modificar noticia*/
 
 #form-container {
@@ -2053,6 +2050,14 @@ ol {
 	margin-bottom: 20px;
 }
 
+.btn_ya_tienes_cuenta {
+	color: #ffffff;
+}
+
+.btn_ya_tienes_cuenta:hover {
+	color: #e53637;
+}
+
 /*---------------------
 modicar_noticia_formulario
 -----------------------*/
@@ -2063,177 +2068,61 @@ modicar_noticia_formulario
     font-family: "Mulish", sans-serif;
 }
 
-
-/* #form_modificar_noticia {
-	padding-top: 130px;
-	padding-bottom: 120px;
-}
-
-#form_modificar_noticia__form {
-	position: relative;
-	padding-left: 145px;
-}
-
-#form_modificar_noticia__form:after {
-	position: absolute;
-	right: -14px;
-	top: -40px;
-	height: 330px;
-	width: 1px;
-	background: rgba(255, 255, 255, 0.2);
-	content: "";
-}
-
-#form_modificar_noticia__form h3 {
-	color: #ffffff;
-	font-weight: 700;
-	font-family: "Oswald", sans-serif;
-	margin-bottom: 30px;
-}
-
-#form_modificar_noticia__form form .input__item {
-	position: relative;
-	width: 370px;
-	margin-bottom: 20px;
-}
-
-#form_modificar_noticia__form form .input__item:before {
-	position: absolute;
-	left: 50px;
-	top: 10px;
-	height: 30px;
-	width: 1px;
-	background: #b7b7b7;
-	content: "";
-}
-
-#form_modificar_noticia__form form .input__item input {
-	height: 50px;
-	width: 100%;
-	font-size: 15px;
-	color: #b7b7b7;
-	background: #ffffff;
-	border: none;
-	padding-left: 76px;
-}
-
-#form_modificar_noticia form .input__item input::-webkit-input-placeholder {
-	color: #b7b7b7;
-}
-
-#form_modificar_noticia form .input__item input::-moz-placeholder {
-	color: #b7b7b7;
-}
-
-#form_modificar_noticia form .input__item input:-ms-input-placeholder {
-	color: #b7b7b7;
-}
-
-#form_modificar_noticia form .input__item input::-ms-input-placeholder {
-	color: #b7b7b7;
-}
-
-#form_modificar_noticia form .input__item input::placeholder {
-	color: #b7b7b7;
-}
-
-#form_modificar_noticia__form form .input__item span {
-	color: #b7b7b7;
-	font-size: 20px;
-	position: absolute;
-	left: 15px;
-	top: 13px;
-}
-
-#form_modificar_noticia__form form button {
-	border-radius: 0;
-	margin-top: 10px;
-}
-
-#form_modificar_noticia__form .forget_pass {
+#login_olvidaste_pass {
 	font-size: 15px;
 	color: #ffffff;
 	display: inline-block;
 	position: absolute;
-	right: 60px;
+	right: 20px;
 	bottom: 12px;
 }
 
-#form_modificar_noticia__register {
-	padding-left: 30px;
-}
-
-#form_modificar_noticia__register h3 {
-	color: #ffffff;
-	font-weight: 700;
-	font-family: "Oswald", sans-serif;
-	margin-bottom: 30px;
-}
-
-#form_modificar_noticia__register .primary-btn {
-	background: #e53637;
-	padding: 12px 42px;
-}
-
-#form_modificar_noticia__social {
-	padding-top: 52px;
-}
-
-#form_modificar_noticia__social__links {
-	text-align: center;
-}
-
-#form_modificar_noticia__social__links span {
-	color: #ffffff;
-	display: block;
-	font-size: 13px;
-	font-weight: 700;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	margin-bottom: 30px;
-}
-
-#form_modificar_noticia__social__links ul li {
-	list-style: none;
-	margin-bottom: 15px;
-}
-
-#form_modificar_noticia__social__links ul li:last-child {
-	margin-bottom: 0;
-}
-
-#form_modificar_noticia__social__links ul li a {
-	color: #ffffff;
-	display: block;
-	font-size: 13px;
-	font-weight: 700;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	width: 460px;
-	padding: 14px 0;
+#form_registro{
 	position: relative;
+	max-width: 600px;
 	margin: 0 auto;
-}
-
-#form_modificar_noticia__social__links ul li a.facebook {
-	background: #4267b2;
-}
-
-#form_modificar_noticia__social__links ul li a.google {
-	background: #ff4343;
-}
-
-#form_modificar_noticia__social__links ul li a.twitter {
-	background: #1da1f2;
-}
-
-#form_modificar_noticia__social__links ul li a i {
+	font-family: "Oswald", sans-serif;
+	color: #ffffff;
 	font-size: 20px;
-	position: absolute;
-	left: 32px;
-	top: 14px;
-} */
-/* hacer responsive de form_modificar_noticia */
+	text-align: left;
+	padding: 20px;
+	background-color: #333;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+
+/* Estilos para el contenedor de resultados */
+.resultados-container {
+	margin-top: 20px;
+}
+
+.resultados-container ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.resultados-container ul li {
+	margin-bottom: 10px; /* Espaciado entre elementos de la lista */
+	border-bottom: 1px solid #ccc; /* Línea separadora entre resultados */
+	padding-bottom: 10px; /* Espaciado adicional en la parte inferior de cada resultado */
+}
+
+/* Estilos para los enlaces de resultados */
+.resultados-container ul li a{
+	text-decoration: none;
+	color: #c27ba0; /* Color del texto del enlace */
+	font-size: 16px;
+	display: block;
+}
+
+.resultados-container ul li a:hover{
+	text-decoration: underline; /* Decoración de subrayado al pasar el ratón */
+}
+
+
 
 /* CREACION DE ESTILOS PARA CONTACTOS Y ABOUT US */
 
@@ -2600,5 +2489,12 @@ modicar_noticia_formulario
 	}
 	.anime__review__item__text {
 		padding: 18px 20px 20px;
+	}
+
+	#login_olvidaste_pass {
+		position: relative;
+		left: 0;
+		bottom: 0;
+		margin-top: 25px;
 	}
 }

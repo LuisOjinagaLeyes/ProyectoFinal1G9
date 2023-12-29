@@ -1,6 +1,7 @@
 from django import forms
 from .models import Noticia
 from django.forms import TextInput, Textarea
+from django.utils.safestring import mark_safe
 
 class Formulario_Noticia(forms.ModelForm):
     
@@ -22,11 +23,11 @@ class Formulario_Modificar_Noticia(forms.ModelForm):
                 'class': 'mb-3 form-control',
                 'rows': 5,
             }),
-            'imagen': TextInput(attrs={
+            'imagen': forms.ClearableFileInput(attrs={
                 'class': 'form-control-file mb-3',
             }),
             'categoria': forms.Select(attrs={
-                'class': 'form-control mb-3'
+                'class': 'form-control mb-3',
             })
         }
 

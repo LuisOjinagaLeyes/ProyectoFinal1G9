@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.views.generic import DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView
 from apps.noticias.models import Noticia
 from .models import Comentario
 from django.urls import reverse_lazy
