@@ -2005,7 +2005,7 @@ ol {
 /* color de fondo del menu */
 
 .dropdown-menu {
-	background-color: #070720;
+	background-color: #7979a3;
 }
 
 .dropdown-menu a:hover {
@@ -2234,6 +2234,29 @@ modicar_noticia_formulario
 	top: 14px;
 } */
 /* hacer responsive de form_modificar_noticia */
+
+/* CREACION DE ESTILOS PARA CONTACTOS Y ABOUT US */
+
+.blogh4{
+	font-size: 30px;
+	font-style: italic;
+	font-weight: 900;
+	color:#ff1c86
+	
+}
+
+.blogcontacto{
+	font-style: italic;
+	color: whitesmoke
+}
+
+.blogcontacto2{
+	font-size: 65px;
+	font-style: inherit;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: white
+	
+}
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {
