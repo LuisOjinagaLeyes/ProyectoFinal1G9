@@ -14,7 +14,13 @@ from datetime import timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
+
 # Create your views here.
+
+
 def I_Noticias(request):
     contexto = {}
     categoria = Categoria.objects.all()
@@ -59,6 +65,8 @@ def I_Noticias(request):
 
     return render(request, 'noticias/index_noticias.html', contexto)
 
+# @LoginRequiredMixin 
+# @UserPassesTestMixin
 
 class Cargar_Noticia(CreateView):
     model = Noticia
@@ -76,6 +84,7 @@ class Cargar_Noticia(CreateView):
 #     template_name = 'noticias/detalle_noticia.html'
 
 #BASADO EN FUNCION
+# @login_required
 def Detalle_noticia(request, pk):
 	contexto = {}
 	n = Noticia.objects.get(pk = pk)
@@ -97,7 +106,7 @@ def Detalle_noticia(request, pk):
 #         return context
 
 
-
+# @LoginRequiredMixin
 class Modificar_Noticia(UpdateView):
     model = Noticia
     template_name = 'noticias/modificar_noticia.html'
