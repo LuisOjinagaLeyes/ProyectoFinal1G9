@@ -5,7 +5,9 @@ from .models import Comentario
 from django.urls import reverse_lazy
 from .forms import Form_Modificacion
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
+@staff_member_required
 @login_required
 def Agregar_Comentario(request,pk):
 
