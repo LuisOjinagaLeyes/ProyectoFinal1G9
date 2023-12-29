@@ -63,8 +63,7 @@
 							{% for comentario in comentarios %}
 								<div class="anime__review__item">
 									<div class="anime__review__item__pic">
-                                        <!--arreglar las imagen de perfil-->
-										<img src="{{ comentario.usuario.imagen.url }}" alt="{{ comentario.usuario.username }} Imagen perfil">
+										{% comment %} <img src="{{ comentario.usuario.imagen.url }}" alt="{{ comentario.usuario.username }} Imagen perfil"> {% endcomment %}
 									</div>
 									<div class="anime__review__item__text">
 										<h6>{{ comentario.usuario.username }} - <span>{{ comentario.fecha }}</span></h6>
