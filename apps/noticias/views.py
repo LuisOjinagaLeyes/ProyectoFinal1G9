@@ -17,7 +17,14 @@ from django.db.models import Q
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+
 # Create your views here.
+
+
 def I_Noticias(request):
     contexto = {}
     categoria = Categoria.objects.all()
@@ -63,13 +70,13 @@ def I_Noticias(request):
 
     return render(request, 'noticias/index_noticias.html', contexto)
 
-
-class Cargar_Noticia(CreateView):
+@staff_member_required
+class Cargar_Noticia(CreateView,):
     model = Noticia
     template_name = 'noticias/cargar_noticia.html'
     form_class = Formulario_Noticia
     success_url = reverse_lazy('noticias:i_noticias')
-
+    @login_required
     def form_valid(self, form):
         noticia = form.save(commit=False)
         noticia.usuario = self.request.user
@@ -80,6 +87,7 @@ class Cargar_Noticia(CreateView):
 #     template_name = 'noticias/detalle_noticia.html'
 
 #BASADO EN FUNCION
+
 def Detalle_noticia(request, pk):
 	contexto = {}
 	n = Noticia.objects.get(pk = pk)
@@ -102,20 +110,21 @@ def Detalle_noticia(request, pk):
 
 
 
-class Modificar_Noticia(UpdateView):
+class Modificar_Noticia(UpdateView, UserPassesTestMixin, LoginRequiredMixin ):
     model = Noticia
     template_name = 'noticias/modificar_noticia.html'
     form_class = Formulario_Modificar_Noticia
     # success_url = reverse_lazy('noticias:i_noticias')
+    @login_required
     def get_success_url(self):
         return reverse_lazy('noticias:i_noticias')
 
-class Borrar_Noticia(DeleteView):
+class Borrar_Noticia(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
     model= Noticia
     template_name = 'noticias/noticia_confirm_delete.html'
     form_class = ConfirmarBorrado
     success_url = reverse_lazy('noticias:i_noticias')
-
+    @login_required
     def form_valid(self, form):
         if form.cleaned.data['confirmar']:
             return super().form_valid(form)
