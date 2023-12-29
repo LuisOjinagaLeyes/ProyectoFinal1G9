@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-	
-	<form method="post">{% csrf_token %}
-    	<p>Estas seguro que desa eliminar: "{{ object }}"?</p>
-	    {{ form }}
-	    <input type="submit" value="CONFIRMAR">
-	</form>
+
+<div class="container">
+    <div class="anime__details__content">
+        <div class="table-active">
+            <form action="" method="post" class="py-4 px-5">
+                {% csrf_token %}
+                <div class="anime__details__text mb-4">
+                    <p class="fs-5">¿Estas seguro que deseas eliminar el comentario: "{{ object }}"?</p>
+                    {{ form }}
+                </div>
+                <div class="anime__details__btn">
+                    <a href="{% url 'noticias:detalle_noticia' pk=object.noticia.pk %}" class="btn-secondary btn-danger follow-btn">Cancelar</a>
+                    <input type="submit" class="btn-danger btn-danger follow-btn" value="Confirmar eliminación">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock contenido %}

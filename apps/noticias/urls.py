@@ -15,4 +15,5 @@ urlpatterns = [
     path('modificar/<int:pk>', views.Modificar_Noticia.as_view(), name='modificar_noticia'),
     path('borrar/<int:pk>', views.Borrar_Noticia.as_view(), name='borrar_noticia'),
     # path('noticias_mas_vistas/', views.Noticias_Mas_Vistas, name='noticias_mas_vistas'),
+    path('buscar/', views.BuscarNoticias.as_view(), name='buscar_noticias'),
 ]
