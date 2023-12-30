@@ -70,13 +70,19 @@ def I_Noticias(request):
 
     return render(request, 'noticias/index_noticias.html', contexto)
 
-@staff_member_required
-class Cargar_Noticia(CreateView,):
+# @staff_member_required
+# @login_required
+class Cargar_Noticia(LoginRequiredMixin,UserPassesTestMixin, CreateView,):
     model = Noticia
     template_name = 'noticias/cargar_noticia.html'
     form_class = Formulario_Noticia
     success_url = reverse_lazy('noticias:i_noticias')
-    @login_required
+    # @login_required
+    def test_func(self):
+
+        return self.request.user.is_staff
+    
+
     def form_valid(self, form):
         noticia = form.save(commit=False)
         noticia.usuario = self.request.user
@@ -110,21 +116,29 @@ def Detalle_noticia(request, pk):
 
 
 
-class Modificar_Noticia(UpdateView, UserPassesTestMixin, LoginRequiredMixin ):
+class Modificar_Noticia(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = Noticia
     template_name = 'noticias/modificar_noticia.html'
     form_class = Formulario_Modificar_Noticia
     # success_url = reverse_lazy('noticias:i_noticias')
-    @login_required
+    # @login_required
+    def test_func(self):
+
+        return self.request.user.is_staff
+
     def get_success_url(self):
         return reverse_lazy('noticias:i_noticias')
 
-class Borrar_Noticia(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
+class Borrar_Noticia(LoginRequiredMixin,UserPassesTestMixin, DeleteView):
     model= Noticia
     template_name = 'noticias/noticia_confirm_delete.html'
     form_class = ConfirmarBorrado
     success_url = reverse_lazy('noticias:i_noticias')
-    @login_required
+    # @login_required
+    def test_func(self):
+
+        return self.request.user.is_staff
+
     def form_valid(self, form):
         if form.cleaned.data['confirmar']:
             return super().form_valid(form)
