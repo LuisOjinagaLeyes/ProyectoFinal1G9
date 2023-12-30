@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView, CreateView , DetailView , UpdateView, DeleteView
+from django.views.generic import ListView, CreateView , UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 from apps.comentarios.models import Comentario
@@ -70,8 +70,8 @@ def I_Noticias(request):
 
     return render(request, 'noticias/index_noticias.html', contexto)
 
-@staff_member_required
-class Cargar_Noticia(CreateView,):
+
+class Cargar_Noticia(CreateView):
     model = Noticia
     template_name = 'noticias/cargar_noticia.html'
     form_class = Formulario_Noticia
